@@ -1,5 +1,5 @@
 class Node(object):
-	def __init__(self, val):
+	def __init__(self, val = 0xFF):
 		self.val = val
 		self.next = None
 
@@ -78,7 +78,19 @@ class Slink(object):
 			return
 
 	def reverse(self):
-		pass
+		if self.isempty():
+			print "Cannot reverse an empty list"
+			return		
+		next_node = None
+		prev_node = None
+		node = self.head.next
+		while node != None:
+			next_node = node.next
+			node.next = prev_node
+			prev_node = node
+			node = next_node
+		else:
+			self.head.next = prev_node
 
 	def sort(self):
 		pass
@@ -96,12 +108,12 @@ class Slink(object):
 
 
 
-init_nodes = [8,8,0,2,8,3,4,5,8,8,8,6,2,7,8,8]
+init_nodes = [2,4,6,8,10,12,14,16,18,20]
 slink = Slink(init_nodes)
 slink.traverse()
-slink.deleteVal(8)
 print
-print
+#slink.traverse()
+slink.reverse()
 slink.traverse()
 
 
