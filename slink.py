@@ -65,18 +65,15 @@ class Slink(object):
 		if self.isempty():
 			print "Cannot delete node in an empty list"
 			return
-		self.traverse()
 		while node != None:
 			if node.val == val:
-				#assert(node.next != None)
 				if node.next == None:
 					self.popTail()
-					return
-				node.val = node.next.val
-				node.next = node.next.next # buggy
-				self.deleteVal(val)
-			else:
-				node = node.next
+				else:
+					node.val = node.next.val
+					node.next = node.next.next
+					self.deleteVal(val)
+			node = node.next
 		else:
 			return
 
@@ -99,9 +96,9 @@ class Slink(object):
 
 
 
-init_nodes = [2,3,4,5,6,2,7,8,8]
+init_nodes = [8,8,0,2,8,3,4,5,8,8,8,6,2,7,8,8]
 slink = Slink(init_nodes)
-#slink.traverse()
+slink.traverse()
 slink.deleteVal(8)
 print
 print
