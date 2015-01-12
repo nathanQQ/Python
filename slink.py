@@ -93,7 +93,52 @@ class Slink(object):
 			self.head.next = prev_node
 
 	def sort(self):
-		pass
+		if self.isempty():
+			print "Cannot sort an empty list"
+			return
+		leng = self.len()
+		self.head.next = self.__mergesort(self.head.next, leng)
+	
+	def __mergesort(self, Node, leng):
+		if leng == 1:
+			Node.next = None
+			return Node
+		lnode = Node
+		rnode = lnode
+		i = 0
+		while i < leng / 2:
+			rnode = rnode.next
+			i += 1
+
+		llink = self.__mergesort(lnode, leng / 2)
+		rlink = self.__mergesort(rnode, leng - leng / 2)
+		return self.__merge(llink,rlink)
+
+	def __merge(self, llink, rlink):
+		if llink.val <= rlink.val:
+			Node =  llink
+			llink = llink.next
+		else:
+			Node = rlink
+			rlink = rlink.next
+		head = Node	
+
+		while llink != None and rlink != None:
+			if llink.val <= rlink.val:
+				Node.next =  llink
+				llink = llink.next
+			else:
+				Node.next = rlink
+				rlink = rlink.next
+			Node = Node.next
+		
+		if llink == None:
+			Node.next = rlink
+		else:
+			Node.next = llink
+
+		return head			
+
 
 	def traverse(self):
 		if self.isempty():
@@ -108,12 +153,10 @@ class Slink(object):
 
 
 
-init_nodes = [2,4,6,8,10,12,14,16,18,20]
+init_nodes = [9,8,7,6,5,4,3,2,1]
 slink = Slink(init_nodes)
 slink.traverse()
-print
-#slink.traverse()
-slink.reverse()
+slink.sort()
 slink.traverse()
 
 
